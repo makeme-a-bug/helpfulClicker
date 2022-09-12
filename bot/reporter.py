@@ -2,7 +2,7 @@ import random
 import time
 from typing import Dict,List,Any,Union
 from selenium import webdriver
-from HLISA.hlisa_action_chains import HLISA_ActionChains as ActionChains
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from utils.utils import solve_captch
 from rich.console import Console
@@ -66,7 +66,7 @@ class Reporter(webdriver.Remote):
         url_open = False
         while not url_open:
             self.get(url)
-            if self.find_element(By.ID,"nav-logo") or attempts >= 3:
+            if self.find_elements(By.ID,"nav-logo") or "Try different image" in self.page_source or attempts >= 3:
                 url_open = True
             attempts +=1
         print("page loaded")
@@ -134,6 +134,7 @@ class Reporter(webdriver.Remote):
                 try:
                     move_to = random.choice(elements)
                     self.execute_script("arguments[0].scrollIntoView(true);", move_to)
+                    time.sleep(2)
                     actions.move_to_element(random.choice(elements)).pause(2).perform()
                     time.sleep(4)
                     actions.reset_actions()
