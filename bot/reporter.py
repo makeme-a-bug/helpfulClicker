@@ -2,7 +2,7 @@ import random
 import time
 from typing import Dict,List,Any,Union
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from utils.utils import solve_captch
 from rich.console import Console
